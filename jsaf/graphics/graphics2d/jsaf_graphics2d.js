@@ -1,8 +1,8 @@
 jsaf.graphics.graphics2d = jsaf_graphics2d;
 //jsaf.graphics2d = jsaf_graphics2d;
 
-jsaf.use("3dParty/opentypejs/dist/opentype.js");
-jsaf.use("3dParty/earcut/earcut.js");
+jsaf.use("3thdParty/opentypejs/dist/opentype.js");
+jsaf.use("3thdParty/earcut/earcut.js");
 
 jsaf.use("math/jsaf_math2d.js");
 

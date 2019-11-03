@@ -13,7 +13,7 @@ spriteFactory.prototype.init =function ()
 {	
 	this.createGui();
  
-	this.font = this.graphics2d.loadFont(this.rootpath+"media/font.png",16,16,1);	
+	this.font = this.graphics2d.loadFont("../../shared/fonts/default.png",16,16,1);	
 }
 
 

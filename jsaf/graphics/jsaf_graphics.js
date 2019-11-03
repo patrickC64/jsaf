@@ -4,7 +4,7 @@ jsaf.use("graphics/shaderManager/jsaf_graphics_shaderManager.js");
 jsaf.use("graphics/jsaf_graphics_textureManager.js");
 jsaf.use("graphics/jsaf_graphics_texture.js");
 
-jsaf.use("3dParty/gl-matrix/gl-matrix.js");
+jsaf.use("3thdParty/gl-matrix/gl-matrix.js");
 
 
 jsaf_graphics.prototype.SOLID_BLEND = 0;

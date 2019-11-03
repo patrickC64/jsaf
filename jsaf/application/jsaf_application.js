@@ -1,5 +1,6 @@
 jsaf.application = jsaf_application;
 
+
 function jsaf_application(  )
 {	
 	this.rootpath = '';

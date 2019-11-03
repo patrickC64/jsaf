@@ -237,9 +237,6 @@ jsaf = new framework();
 
 jsaf.use('application/jsaf_bootstrap.js');
 
-
-
-//	jsaf.startApplication()
 if (  window.location.toString().indexOf ('?secenv') != -1 )
 {	
 	jsaf.use('secenv.js');
@@ -251,7 +248,8 @@ else
 	( function () 
 	{			 
 		window.onload = function(){
-
+			
+			if ( typeof(jsaf.appname) != 'undefined' )
 		 	jsaf.loadApplication();
 		};
 		
