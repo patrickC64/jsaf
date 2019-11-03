@@ -1,0 +1,4 @@
+spriteFactory.prototype.initInputControl = function ()
+{
+
+}

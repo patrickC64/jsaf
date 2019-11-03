@@ -1,0 +1,5 @@
+spriteFactory.prototype.initGraphics = function ()
+{
+
+}
+

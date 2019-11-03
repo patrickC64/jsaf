@@ -1,0 +1,11 @@
+BASE FILE & CLASS NAMING CONVENTIONS
+------------------------------------
+
+jsaf/functionspace/functionmodul/jsaf_modulname.js
+
+The corrosponding classmodul should look like
+
+jsaf.functionmodul_modulname = jsaf_functionmodul_modulname;
+
+function jsaf_functionmodul_modulname ( args ) {}
+

@@ -1,0 +1,13 @@
+-- GUI Konzept Paper --
+
+Was ist Draw was ist Rendering?
+
+Draw ist das Zeichnen des gerenderten Widgets.
+Beim rendern wird das Widget auf eine Texture vorgezeichnet so dass nur ein Bild gezeichnet werden muss wenn
+sich an dem Widget nichts verändert!
+
+EventQueue
+
+Wann, Wer, Wohin, Warum, Was tun ...
+
+

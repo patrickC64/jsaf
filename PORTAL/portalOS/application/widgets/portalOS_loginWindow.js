@@ -1,0 +1,4 @@
+portalOS_loginWindow = function ()
+{
+	
+}

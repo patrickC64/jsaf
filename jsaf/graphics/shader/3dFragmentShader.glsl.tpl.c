@@ -1,0 +1,4 @@
+
+	gl_FragColor = getFragmentColor();
+	
+	
