@@ -12,7 +12,7 @@ function jsaf_graphics3d_camera  (graphics3d)
 
 	this.projection = jsaf_graphics3d_camera.PERSPEKTIVE_CAMERA;
 
-	this.zfar		= 360.0;
+	this.zfar		= 100.0;
 	this.znear		= 0.0;
 	
 	this.fog		= 0;
@@ -32,7 +32,9 @@ jsaf_graphics3d_camera.prototype.update = function ()
 
 
 jsaf_graphics3d_camera.prototype.render = function ()
-{
+{	
+	let gl = this.graphics3d.gl;
+	
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER );
 	
 	

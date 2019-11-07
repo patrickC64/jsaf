@@ -213,7 +213,7 @@ var framework = ( function ()
  
 		 	app.graphics2d	 = new this.graphics.graphics2d   ( app.graphics );
 
-		 //	app.graphics3d	 = new this.graphics3d   ( app.graphics );
+		 	app.graphics3d	 = new this.graphics.graphics3d   ( app.graphics );
 		
 			app.inputControl = new this.inputControl ( app.graphics );
 

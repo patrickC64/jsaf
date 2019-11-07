@@ -1,4 +1,4 @@
-jsaf.graphics3d = jsaf_graphics3d;
+jsaf.graphics.graphics3d = jsaf_graphics3d;
 
 jsaf.use("graphics/graphics3d/jsaf_graphics3d_entityBase.js")
 jsaf.use("graphics/graphics3d/jsaf_graphics3d_entity.js");
@@ -17,15 +17,21 @@ jsaf.use("graphics/graphics3d/jsaf_graphics3d_renderlogic.js")
 
 function jsaf_graphics3d( graphics ,resx, resy)
 {
+
+	
 	if ( typeof(graphics) == 'string')
 	{
 		graphics = new jsaf_graphics (graphics, resx,resy);
 	}
+
+	this.sceneGraph =  [];
+	this.cameras	=  [];	
 	
 	this.canvas = graphics.canvas;
 	this.graphics = graphics;
  
 	this.gl = graphics.gl;
+
 	
 	this.shaderManager = graphics.shaderManager;
 	this.textureManager = graphics.textureManager;
@@ -40,13 +46,7 @@ function jsaf_graphics3d( graphics ,resx, resy)
 	this.drawCalls = 0;
 									
 	this.rendersettings =
-	{ 'rotation': 0.0 
-	, 'scale': [1.0, 1.0] 
-	, 'vertexColor': [1.0, 1.0, 1.0, 1.0]
-	, 'alpha': 1.0
-	, 'automidhandle': false
-	, 'handle': [0.0,0.0]	
-	, 'origin': [0.0, 0.0]
+	{ 
 	} 
 	
 	this.currentShader		= null;
@@ -75,10 +75,7 @@ function jsaf_graphics3d( graphics ,resx, resy)
 
 	this.initShaders();
 	
-	this.graphics.glViewport();
-	
-	this.sceneGraph =  [];
-	this.cameras	=  [];				
+	//this.graphics.glViewport();			
 }
  
 
@@ -101,7 +98,7 @@ jsaf_graphics3d.prototype.initShaders = function()
 	this.textured3dshader.createVertexAttribute ('resolution','vec2')
 	.bindBuffer(this.renderBuffer.resolution);	
 
- 
+ /*
  	this.textured3dshader.createVertexUniform	  ('worldMatrix','mat4')
 	.bindBuffer(this.renderBuffer.worldMatrix);	
 
@@ -110,8 +107,7 @@ jsaf_graphics3d.prototype.initShaders = function()
 
  	this.textured3dshader.createVertexUniform	  ('projMatrix','mat4')
 	.bindBuffer(this.renderBuffer.projMatrix);	
-
-	
+	*/
 	this.textured3dshader.createFragmentAttribute ('color','vec4')
 	.bindBuffer(this.renderBuffer.color);
 
@@ -121,7 +117,6 @@ jsaf_graphics3d.prototype.initShaders = function()
  	this.textured3dshader.createFragmentAttribute ('texuv','vec2' )
 	.bindBuffer(this.renderBuffer.texuv);
 	
-	//@TODO: predefined dynamic dim to array!
  	this.textured3dshader.createFragmentUniform	  ('textures['+this.textureUnits+']','sampler2D')
 	.bindBuffer(this.renderBuffer.textures);
  					 

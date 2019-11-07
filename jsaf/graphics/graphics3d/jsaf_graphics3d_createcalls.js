@@ -56,6 +56,7 @@ jsaf_graphics3d.prototype.createCube = function ()
 	
 	var surface = new jsaf_graphics3d_surface(mesh, brush);
 
+
 	surface.addTriangle ( [ 0.0 ,1.0 ,0.0 
 						  , 1.0 ,1.0 ,0.0
 						  , 0.0 ,0.0 ,0.0 ] );

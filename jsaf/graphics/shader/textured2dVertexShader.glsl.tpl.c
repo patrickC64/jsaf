@@ -1,4 +1,6 @@
-//VERTEX_SHADER (textured)
+// 2D VERTEX_SHADER (textured)
+//
+// 
 ##PRECISION
 
 uniform vec2 resolution;

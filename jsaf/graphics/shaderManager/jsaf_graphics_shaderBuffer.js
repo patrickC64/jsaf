@@ -11,6 +11,8 @@ function jsaf_graphics_shaderBuffer (shader, shaderType, bufferType, name, decl 
 	this.name = name;
 	this.decl = decl;
 	
+	// i dont know realy what i mean at this location with size ??? ....
+	// ... i think i can be the vertex count ...
 	var size = parseInt(decl.match(/\d/g) );	
 	if ( isNaN (size) )
 		size = 1;
@@ -39,6 +41,7 @@ jsaf_graphics_shaderBuffer.prototype.getName = function ( )
 	}
 	return name;
 }
+
 
 
 jsaf_graphics_shaderBuffer.prototype.setBinding = function (decl)
@@ -126,8 +129,8 @@ jsaf_graphics_shaderBuffer.prototype.bindBufferData = function (vertices)
 	 	gl.vertexAttribPointer(this.location, this.size , gl.FLOAT, false, 0,0);
 
  		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.buffer) , gl.STATIC_DRAW);	
- 
 	}
+	
 	
 	if ( this.bufferType == jsaf_graphics_shaderBuffer.UNIFORM_BUFFER )
 	{
@@ -135,7 +138,7 @@ jsaf_graphics_shaderBuffer.prototype.bindBufferData = function (vertices)
 		 {
 			 case 'vec2':
  
-				gl.uniform2fv(this.location,  this.buffer );
+				gl.uniform2fv(this.location, this.buffer );
 		
 				break;
 				
