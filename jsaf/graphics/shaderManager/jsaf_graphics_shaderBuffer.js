@@ -11,8 +11,7 @@ function jsaf_graphics_shaderBuffer (shader, shaderType, bufferType, name, decl 
 	this.name = name;
 	this.decl = decl;
 	
-	// i dont know realy what i mean at this location with size ??? ....
-	// ... i think i can be the vertex count ...
+	// size of vec  vecX
 	var size = parseInt(decl.match(/\d/g) );	
 	if ( isNaN (size) )
 		size = 1;

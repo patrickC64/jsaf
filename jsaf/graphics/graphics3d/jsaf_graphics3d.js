@@ -23,9 +23,10 @@ function jsaf_graphics3d( graphics ,resx, resy)
 	{
 		graphics = new jsaf_graphics (graphics, resx,resy);
 	}
-
-	this.sceneGraph =  [];
-	this.cameras	=  [];	
+	
+	// store meshs
+	this.world =  [];
+	this.cameras =  [];	
 	
 	this.canvas = graphics.canvas;
 	this.graphics = graphics;

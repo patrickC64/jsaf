@@ -11,9 +11,10 @@ function jsaf_graphics2d_ttfFont( graphics2d )
 }
 
 
-jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url  )
+jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url , fontSize )
 {
-	var fontSize = 60;
+	fontSize = fontSize ? fontSize : 22;
+	
 	this.image = this.graphics2d.createImage(1,1);
 	
     opentype.load( url, function (err, font) {
@@ -45,15 +46,15 @@ jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url  )
   
  */
 		var settings = {   
-						//  'wrap_s':gl.CLAMP_TO_EDGE, 'wrap_t':gl.CLAMP_TO_EDGE
-					       'filter':gl.LINEAR	 
+						 // 'wrap_s':gl.CLAMP_TO_EDGE, 'wrap_t':gl.CLAMP_TO_EDGE,
+					      // 'filter':gl.LINEAR	 
 					   } ;
 
 		this.image = this.graphics2d.createImage( imgsize   , imgsize +fontSize  , settings );
 	
 		g.setRenderTarget( this.image );
 	
-		g.setColor(0,0,0);
+		g.setColor(1,1,1);
 		g.setAlpha(1);
 		g.setScale(1,1);	
 
@@ -107,10 +108,10 @@ jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url  )
 			
 			offset = glyph.unicode+2   ;
 			
-			x = ( (offset+3 ) % (cellsxy    )) * (fontSize) 
-			y = this.image.height-(Math.round( (offset-2  )/(cellsxy  ) ) )*fontSize ;
+			x = ( (offset+3 ) % (cellsxy    )) * (fontSize*1.001) 
+			y = this.image.height-(Math.round( (offset-2  )/(cellsxy  ) ) )*fontSize*1.001 ;
 	 
-			g.drawPolygon 	( cPoly.triangles , x+.375  ,y+fontSize*2+.375  );		  
+			g.drawPolygon 	( cPoly.triangles , x+.375  ,y+fontSize*2+.275  );		  
 		}				
 				 	
 		g.setRenderTarget( null );	
