@@ -11,18 +11,17 @@ testApp3.prototype.init =function ()
 
  	this.font = this.graphics2d.loadFont ( "media/fonts/font.png",16,16,2);
 
- 	var fontname = 'Roboto-Black.ttf';
-
- // fontname = 'FontAwesome.ttf';
- //fontname = 'badfont.otf';
-fonts[  ]='source-gen.otf';
-
- // 	fontname= 'TestTracking3.ttf';
+	var fonts = [];
 	
-	fontname= 'AmaticSC-Regular.ttf';
-//	  fontname= 'Candara.ttf';
+	fonts[ 0]='Roboto-Black.ttf';
+	fonts[ 1]='FontAwesome.ttf';
+	fonts[ 2]='badfont.otf';
+	fonts[ 3]='source-gen.otf';
+	fonts[ 4]= 'TestTracking3.ttf';	
+	fonts[ 5]= 'AmaticSC-Regular.ttf';
+	fonts[ 6]= 'Candara.ttf';
 
-	this.ttfFont =  this.graphics2d.loadFont ( 'media/fonts/'+fontname ,16 );
+	this.ttfFont =  this.graphics2d.loadFont ( 'media/fonts/'+fonts[ 5] ,16 );
 
 }
 

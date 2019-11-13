@@ -3,7 +3,6 @@ jsaf.use("3thdParty/earcut/earcut.js");
 
 jsaf_graphics2d_ttfFont.prototype = Object.create ( jsaf_graphics2d_font.prototype );
 
-
 function jsaf_graphics2d_ttfFont( graphics2d )
 {
 	jsaf_graphics2d_font.call ( this, graphics2d );
@@ -13,7 +12,6 @@ function jsaf_graphics2d_ttfFont( graphics2d )
 	this.isload = false;
 
 	this.glyphs = [];
-	
 }
 
 
@@ -24,44 +22,26 @@ jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url, fontSize  )
 	this.fontSize = fontSize;
 		
     opentype.load( url, function (err, font) {
-	//console.log(font);
-		var amount, glyph, ctx, x, y, fontSize;
-		
+ 		
         if (err) {
             console.log("LOAD TTFFONT ERROR :"+err);
         }
  
-		//console.log ( font );
-		
-     //   var buffer = font.toArrayBuffer(font);
-
-      //  outFont = opentype.parse(buffer);
-
 		var x;
 		var y;
 		var path,cPoly,unicode, offset;
-
-		// console.log ( outFont )
-
+ 
 		for (var gi = 0; gi < font.glyphs.length; gi++) {
 			
 			glyph = font.glyphs.get(gi);
 
 			path = glyph.getPath( 0 ,  0 , fontSize, {kerning: true } );
-	
-			glyph.advanceWidth=0;
 			
 			cPoly = new jsaf_graphics2d_polygonPath();	;
 
 			for (let i = 0; i < path.commands.length; i += 1) 
 			{
 				const cmd = path.commands[i];
-				
-				/* // obsolete
-				cmd.y *=-1.0;
-				cmd.y1*=-1.0;
-				cmd.y2*=-1.0;
-				*/
 				
 				switch ( cmd.type )
 				{
@@ -90,12 +70,10 @@ jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url, fontSize  )
 			cPoly.closePath();
 
 			this.glyphs[glyph.unicode] = { 'polygon': cPoly, 'metrics': glyph.getMetrics() };
-
 		}	
 		
 		this.isload = true;
-		
-		
+				
     }.bind(this) );
 
 }
@@ -129,12 +107,10 @@ jsaf_graphics2d_ttfFont.prototype.drawText = function ( text, x, y, center)
 			this.drawGlyph( glyph , xoff , yoff);
 		}
 		
-		xoff += (this.fontSize*1.6)* scale[0];
+		xoff += (this.fontSize*.16)* scale[0];
 						
 		if (this.letterSpacing !=0 )
-			xoff += this.letterSpacing * scale[1];
-		
-		
+			xoff += this.letterSpacing * scale[0];		
 	}
  
 }
@@ -148,11 +124,9 @@ jsaf_graphics2d_ttfFont.prototype.drawGlyph = function ( glyph, x, y)
 
 jsaf_graphics2d_ttfFont.prototype.convertToBitmapFont = function ()
 {
-
 		var g = this.graphics2d;
  
 		var gl = this.graphics2d.gl;
-
 
 		var cells =  Math.round ( Math.sqrt( outFont.glyphs.length )*2 );
  
@@ -171,7 +145,6 @@ jsaf_graphics2d_ttfFont.prototype.convertToBitmapFont = function ()
 		var settings = {   
 						   'wrap_s':gl.CLAMP_TO_EDGE, 'wrap_t':gl.CLAMP_TO_EDGE,
 					       'filter':gl.NEAREST	 
-
 					   } ;
 
 		this.image = this.graphics2d.createImage( imgsize   , imgsize , settings );
@@ -184,4 +157,18 @@ jsaf_graphics2d_ttfFont.prototype.convertToBitmapFont = function ()
 
 		g.setAlpha(1);
 		g.setScale(1,1);		
+}
+
+
+
+jsaf_graphics2d_ttfFont.prototype.renderFontAtlas = function ( x, y )
+{
+		var g = this.graphics2d;
+ 
+		var gl = this.graphics2d.gl;
+	
+		for (chr = 0; chr < 256; chr++)
+		{
+			
+		}
 }

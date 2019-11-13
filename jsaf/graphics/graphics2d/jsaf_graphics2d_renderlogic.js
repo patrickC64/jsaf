@@ -27,6 +27,7 @@ jsaf_graphics2d.prototype.useShader = function ( shader )
 
 jsaf_graphics2d.prototype.pushRenderData = function ( type, position, texture, frame )
 {
+	// todo: description
 	if ( this.currentPrimitive == null  
 	|| 	 type != this.currentPrimitive || this.renderTextured != ( texture != null) )
 	{		
@@ -39,7 +40,7 @@ jsaf_graphics2d.prototype.pushRenderData = function ( type, position, texture, f
 		this.currentPrimitive = type;	
 	}
 
-	
+	// todo: description
 	if ( this.renderTextured )
 	{	
 		if ( this.renderCallTextures.length == this.graphics.textureUnits-1 )
