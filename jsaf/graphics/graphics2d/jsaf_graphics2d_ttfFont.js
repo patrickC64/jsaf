@@ -1,4 +1,4 @@
-jsaf.use("3thdParty/opentypejs/dist/opentype.js");
+jsaf.use("3thdParty/opentypejs/dist/opentype.min.js");
 jsaf.use("3thdParty/earcut/earcut.js");
 
 jsaf_graphics2d_ttfFont.prototype = Object.create ( jsaf_graphics2d_font.prototype );

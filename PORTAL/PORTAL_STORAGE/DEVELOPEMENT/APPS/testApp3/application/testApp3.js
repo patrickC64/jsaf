@@ -15,7 +15,7 @@ testApp3.prototype.init =function ()
 
  // fontname = 'FontAwesome.ttf';
  //fontname = 'badfont.otf';
- //	fontname = 'source-gen.otf';
+fonts[  ]='source-gen.otf';
 
  // 	fontname= 'TestTracking3.ttf';
 	

@@ -14,6 +14,44 @@
 	<script src="../jsaf/jsaf.js"></script>
 	
 
+	
+	<script>
+		window.onload = function(){
+
+			let gc = new jsaf.graphics ('jsafRenderCanvas',1024,768);
+			let g = new jsaf.graphics.graphics2d (gc);
+			
+			var fonts = [];
+			
+			fonts[ 0]='Roboto-Black.ttf';
+			fonts[ 1]='FontAwesome.ttf';
+			fonts[ 2]='badfont.otf';
+			fonts[ 3]='source-gen.otf';
+			fonts[ 4]= 'TestTracking3.ttf';	
+			fonts[ 5]= 'AmaticSC-Regular.ttf';
+			fonts[ 6]= 'Candara.ttf';
+
+			let font =  g.loadFont ( 'shared/fonts/'+fonts[5] ,16 );	
+		
+			var render = function () {
+				
+				g.cls();
+				
+				g.setFont ( font ) 
+				g.setColor (1,1,1)
+				g.drawText ("JSAF (version 0.02a)",200,300);
+				
+				g.render();
+				console.log ( "render");
+				
+				window.requestAnimationFrame( render );	
+						
+			}
+			
+			window.requestAnimationFrame( render );	
+			
+		};
+	</script>
 		
 	
 </head>
@@ -25,12 +63,5 @@
 	</div>
 	
 	</body>
-	
-	<script>
-		jsaf.onready = function ()
-		{
-		
-		}
-	</script>
 	
 </html>

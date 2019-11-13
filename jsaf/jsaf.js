@@ -13,6 +13,7 @@ var framework = ( function ()
 		this.loadIncludes = 0;
 		this.onApplicationLoad = null;
 		console.log ("JSAF "+this.version);
+		this.use('application/jsaf_bootstrap.js');
 	}
 
 	
@@ -228,6 +229,9 @@ var framework = ( function ()
 //		this.include('../'+this.appname +'/application/'+this.appname +'.js');
 		this.include('application/'+this.appname +'.js');
 	}	
+
+//	graphics = new jsaf.graphics('',2,2)
+
 	
 	return jsaf;
 
@@ -235,7 +239,7 @@ var framework = ( function ()
  
 jsaf = new framework();
 
-jsaf.use('application/jsaf_bootstrap.js');
+//jsaf.use('application/jsaf_bootstrap.js');
 
 if (  window.location.toString().indexOf ('?secenv') != -1 )
 {	
