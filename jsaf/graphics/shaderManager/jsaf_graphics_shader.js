@@ -85,8 +85,8 @@ jsaf_graphics_shader.prototype.createFragmentUniform = function (name, decl )
 
 jsaf_graphics_shader.prototype.loadVertexShader = function (file)
 {	
-//	this.vertexShaderSource = jsaf.loadTextFileSync ( file );
-	this.vertexShaderSource = await jsaf.loadFile ( file );
+	this.vertexShaderSource = jsaf.loadTextFileSync ( file );
+//	this.vertexShaderSource = jsaf.loadFile ( file );
 }
 
 
