@@ -85,9 +85,8 @@ jsaf_graphics2d_polygonPath.prototype.lineTo = function ( p )
 
 
 
-jsaf_graphics2d_polygonPath.prototype.bezierCurveTo = function ( p, p1 ) 
+jsaf_graphics2d_polygonPath.prototype.quadraticCurveTo = function ( p, p1 ) 
 {
-	
     const p0 = this.polygon.vertices[this.polygon.vertices.length - 1];
     const dist = jsaf_math2d.distance(p0, p1) + jsaf_math2d.distance(p1, p);
  
@@ -104,10 +103,13 @@ jsaf_graphics2d_polygonPath.prototype.bezierCurveTo = function ( p, p1 )
 }
 
 
-jsaf_graphics2d_polygonPath.prototype.quadraticCurveTo = function ( p, p1, p2 ) 
-{
-    const p0 = this.polygon.vertices[this.polygon.vertices.length - 1];
+jsaf_graphics2d_polygonPath.prototype.bezierCurveTo = function ( p, p1, p2 ) 
+{	
+	//p2 = p2 ? p2 : p;
+	
+	const p0 = this.polygon.vertices[this.polygon.vertices.length - 1];	
     const dist = jsaf_math2d.distance(p0, p1) + jsaf_math2d.distance(p1, p2) + jsaf_math2d.distance(p2, p);
+	
     const steps = Math.max(2, Math.min(this.MAX_BEZIER_STEPS, dist / this.BEZIER_STEP_SIZE));
     for (let i = 1; i <= steps; ++i) 
 	{
@@ -116,6 +118,7 @@ jsaf_graphics2d_polygonPath.prototype.quadraticCurveTo = function ( p, p1, p2 )
 		const b = jsaf_math2d.lerp(jsaf_math2d.lerp(p1, p2, t), jsaf_math2d.lerp(p2, p, t), t);
 		this.polygon.vertices.push(jsaf_math2d.lerp(a, b, t));
     }
+	
 }
 
 

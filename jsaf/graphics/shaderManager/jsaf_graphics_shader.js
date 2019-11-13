@@ -85,7 +85,8 @@ jsaf_graphics_shader.prototype.createFragmentUniform = function (name, decl )
 
 jsaf_graphics_shader.prototype.loadVertexShader = function (file)
 {	
-	this.vertexShaderSource =jsaf.loadTextFileSync ( file );
+//	this.vertexShaderSource = jsaf.loadTextFileSync ( file );
+	this.vertexShaderSource = await jsaf.loadFile ( file );
 }
 
 
@@ -223,8 +224,10 @@ jsaf_graphics_shader.prototype.compileShader = function ( type, source )
 	var compilationLog = gl.getShaderInfoLog(shader);
 		
 	if( compiled == 0 )
-		alert(compilationLog);
-
+	{
+		console.log(compilationLog);
+	}
+	
 	return shader;	
 }
 

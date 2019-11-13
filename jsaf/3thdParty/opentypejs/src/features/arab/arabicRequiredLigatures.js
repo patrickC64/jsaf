@@ -3,48 +3,38 @@
  */
 
 import { ContextParams } from '../../tokenizer';
+import applySubstitution from '../applySubstitution';
+
+/**
+ * Update context params
+ * @param {any} tokens a list of tokens
+ * @param {number} index current item index
+ */
+function getContextParams(tokens, index) {
+    const context = tokens.map(token => token.activeState.value);
+    return new ContextParams(context, index || 0);
+}
 
 /**
  * Apply Arabic required ligatures to a context range
  * @param {ContextRange} range a range of tokens
  */
 function arabicRequiredLigatures(range) {
-    const features = this.features.arab;
-    if (!features.hasOwnProperty('rlig')) return;
+    const script = 'arab';
     let tokens = this.tokenizer.getRangeTokens(range);
-    for (let i = 0; i < tokens.length; i++) {
-        const lookupParams = new ContextParams(tokens, i);
-        let substitution = features.rlig.lookup(lookupParams) || null;
-        const chainingContext = (
-            substitution.length === 1 &&
-            substitution[0].id === 63 &&
-            substitution[0].substitution
-        );
-        const ligature = (
-            substitution.length === 1 &&
-            substitution[0].id === 41 &&
-            substitution[0].substitution[0]
-        );
-        const token = tokens[i];
-        if (!!ligature) {
-            token.setState('rlig', [ligature.ligGlyph]);
-            for (let c = 0; c < ligature.components.length; c++) {
-                const component = ligature.components[c];
-                const lookaheadToken = lookupParams.get(c + 1);
-                if (lookaheadToken.activeState.value === component) {
-                    lookaheadToken.state.deleted = true;
-                }
-            }
-        } else if (chainingContext) {
-            const substIndex = (
-                chainingContext &&
-                chainingContext.length === 1 &&
-                chainingContext[0].id === 12 &&
-                chainingContext[0].substitution
+    let contextParams = getContextParams(tokens);
+    contextParams.context.forEach((glyphIndex, index) => {
+        contextParams.setCurrentIndex(index);
+        let substitutions = this.query.lookupFeature({
+            tag: 'rlig', script, contextParams
+        });
+        if (substitutions.length) {
+            substitutions.forEach(
+                action => applySubstitution(action, tokens, index)
             );
-            if (!!substIndex && substIndex >= 0) token.setState('rlig', substIndex);
+            contextParams = getContextParams(tokens);
         }
-    }
+    });
 }
 
 export default arabicRequiredLigatures;

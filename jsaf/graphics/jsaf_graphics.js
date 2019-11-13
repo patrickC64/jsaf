@@ -27,7 +27,7 @@ function jsaf_graphics( canvasID , resx, resy )
 	
 	var contextOptions = null;
 		
-	contextOptions = { 'antialias': false, 'preserveDrawingBuffer': false, 'alpha':false, 'premultipliedAlpha':false };
+	contextOptions = { 'antialias': true, 'preserveDrawingBuffer': false ,'alpha':false, 'premultipliedAlpha':false };
 	this.gl = this.canvas.getContext("experimental-webgl", contextOptions);
 	
 

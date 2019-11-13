@@ -19,6 +19,8 @@ function jsaf_graphics_texture (textureManager, w, h, settings)
 	this.wrap_t = this.gl.CLAMP_TO_EDGE;
 	this.filter_mag = this.gl.LINEAR;
 	this.filter_min = this.gl.LINEAR;
+//	this.filter_mag = this.gl.NEAREST;
+//	this.filter_min = this.gl.NEAREST;
 	
 	
 	if ( settings )
@@ -29,7 +31,7 @@ function jsaf_graphics_texture (textureManager, w, h, settings)
 		if ( settings.wrap_t)
 			this.wrap_t =settings.wrap_t;
 		
-		if ( settings.filter_min)
+		if ( settings.filter)
 		{
 			this.filter_min = settings.filter;
 			this.filter_mag = settings.filter;
@@ -41,7 +43,6 @@ function jsaf_graphics_texture (textureManager, w, h, settings)
 		if ( settings.filter_mag)
 	 		this.filter_mag = settings.filter_mag;
 		
-
 	}
 
 	this.glTexture = null;

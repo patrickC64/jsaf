@@ -60,7 +60,7 @@ encode.CHAR = function(v) {
  * @type {number}
  */
 sizeOf.CHAR = constant(1);
-
+	 alert(v)
 /**
  * Convert an ASCII string to a list of bytes.
  * @param {string}
@@ -68,6 +68,7 @@ sizeOf.CHAR = constant(1);
  */
 encode.CHARARRAY = function(v) {
     const b = [];
+
     for (let i = 0; i < v.length; i += 1) {
         b[i] = v.charCodeAt(i);
     }

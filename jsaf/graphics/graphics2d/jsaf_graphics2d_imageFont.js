@@ -22,7 +22,7 @@ jsaf_graphics2d_imageFont.prototype.loadFont = function (url, cellsX, cellsY)
 
 jsaf_graphics2d_imageFont.prototype.drawText = function ( text, x, y, center)
 {
-	if( !this.image || this.image.texture.texuv == null)
+	if( !this.image || this.image.texture == null)
 		return;
 
 	text+='';

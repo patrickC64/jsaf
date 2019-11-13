@@ -1,3 +1,6 @@
+jsaf.use("3thdParty/opentypejs/dist/opentype.js");
+jsaf.use("3thdParty/earcut/earcut.js");
+
 jsaf_graphics2d_ttfFont.prototype = Object.create ( jsaf_graphics2d_font.prototype );
 
 
@@ -7,75 +10,58 @@ function jsaf_graphics2d_ttfFont( graphics2d )
 	
 	this.letterSpacing = 6;
 	
-	this.polygons = [];
+	this.isload = false;
+
+	this.glyphs = [];
+	
 }
 
 
-jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url  )
+jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url, fontSize  )
 {
-	var fontSize = 60;
-	this.image = this.graphics2d.createImage(1,1);
+	fontSize = fontSize ? fontSize : 32;
 	
+	this.fontSize = fontSize;
+		
     opentype.load( url, function (err, font) {
+	//console.log(font);
+		var amount, glyph, ctx, x, y, fontSize;
 		
         if (err) {
-            console.log(err);
+            console.log("LOAD TTFFONT ERROR :"+err);
         }
-
-        inFont = font;
-        var buffer = inFont.toArrayBuffer();
-        outFont = opentype.parse(buffer);
-
-		var g = this.graphics2d;
  
-		var gl = this.graphics2d.gl;
-
-		var cellsxy =  Math.round ( Math.sqrt( outFont.glyphs.length ) );
- 
-		var imgsize = (cellsxy  )*fontSize;
-	 
-  /*
-	 	var imgsizeNonPow2 = imgsize;
+		//console.log ( font );
 		
-		imgsize =  Math.pow( 2, Math.round( Math.log( imgsize ) / Math.log( 2 ) ) ); 
+     //   var buffer = font.toArrayBuffer(font);
 
-		if ( imgsizeNonPow2 > imgsize )
-		{ imgsize*=2;
-		} 
-  
- */
-		var settings = {   
-						//  'wrap_s':gl.CLAMP_TO_EDGE, 'wrap_t':gl.CLAMP_TO_EDGE
-					       'filter':gl.LINEAR	 
-					   } ;
-
-		this.image = this.graphics2d.createImage( imgsize   , imgsize +fontSize  , settings );
-	
-		g.setRenderTarget( this.image );
-	
-		g.setColor(0,0,0);
-		g.setAlpha(1);
-		g.setScale(1,1);	
+      //  outFont = opentype.parse(buffer);
 
 		var x;
 		var y;
-		var glyph,path,cPoly,unicode, offset;
+		var path,cPoly,unicode, offset;
 
-		for (var gi = 0; gi < outFont.glyphs.length; gi++) {
+		// console.log ( outFont )
+
+		for (var gi = 0; gi < font.glyphs.length; gi++) {
 			
-			glyph = outFont.glyphs.get(gi);
+			glyph = font.glyphs.get(gi);
 
-			path = glyph.getPath( 0 ,  -fontSize*.25 , fontSize );
- 	
+			path = glyph.getPath( 0 ,  0 , fontSize, {kerning: true } );
+	
+			glyph.advanceWidth=0;
+			
 			cPoly = new jsaf_graphics2d_polygonPath();	;
 
 			for (let i = 0; i < path.commands.length; i += 1) 
 			{
 				const cmd = path.commands[i];
 				
+				/* // obsolete
 				cmd.y *=-1.0;
 				cmd.y1*=-1.0;
 				cmd.y2*=-1.0;
+				*/
 				
 				switch ( cmd.type )
 				{
@@ -102,72 +88,100 @@ jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url  )
 			}
 			
 			cPoly.closePath();
-			 
-			this.polygons.push (cPoly);
-			
-			offset = glyph.unicode+2   ;
-			
-			x = ( (offset+3 ) % (cellsxy    )) * (fontSize) 
-			y = this.image.height-(Math.round( (offset-2  )/(cellsxy  ) ) )*fontSize ;
-	 
-			g.drawPolygon 	( cPoly.triangles , x+.375  ,y+fontSize*2+.375  );		  
-		}				
-				 	
-		g.setRenderTarget( null );	
- 		
-	 	this.image.texture.createTextureAtlas (cellsxy, cellsxy+1    )
 
+			this.glyphs[glyph.unicode] = { 'polygon': cPoly, 'metrics': glyph.getMetrics() };
+
+		}	
+		
+		this.isload = true;
+		
+		
     }.bind(this) );
-	
+
 }
-
-
-
 
 
 jsaf_graphics2d_ttfFont.prototype.drawText = function ( text, x, y, center)
 {
-	if( !this.image || this.image.texture.texuv == null)
+	if( this.isload == false )
 		return;
 
 	text+='';
-	
-	var scale = this.graphics2d.getScale();
-
-	var texture = this.image.texture;
-	
-	var cellWidth =  texture.cellWidth;
-	
-
  
-	var xoff = x;
-	var yoff = y;
+	let xoff = x;
+	let yoff = y;
+	let scale = this.graphics2d.getScale();//[ 1.0, 1.0];
+	let glyph = null;
 	
-	var charOff = ( ( texture.cellsX*texture.cellsY ) >>1 ) % 100;
- 
 	// draw each glyph seperate
 	for(c=0;c<text.length;c++)
 	{	
 		if (text.charCodeAt(c) == 10)
 		{
-			yoff += texture.cellHeight;
-			
-			xoff = v[0];
+			yoff += this.fontSize;
+			xoff = x;			
+			continue;
 		}
 	
-		this.drawChar( text.charCodeAt(c) -25, xoff , yoff);
+		if ( glyph = this.glyphs[text.charCodeAt(c)] )
+		{	
+			if( text.charCodeAt(c)!=32 )
+			this.drawGlyph( glyph , xoff , yoff);
+		}
 		
-			xoff += (cellWidth *.525)* scale[0];
-
+		xoff += (this.fontSize*1.6)* scale[0];
+						
 		if (this.letterSpacing !=0 )
 			xoff += this.letterSpacing * scale[1];
+		
 		
 	}
  
 }
 
 
-jsaf_graphics2d_ttfFont.prototype.drawChar = function ( char, x, y)
-{	
-	this.graphics2d.pushRenderData ( this.graphics2d.QUAD, [ x, y, this.image.texture.cellWidth, this.image.texture.cellHeight], this.image.texture, char);	
+jsaf_graphics2d_ttfFont.prototype.drawGlyph = function ( glyph, x, y)
+{
+	this.graphics2d.drawPolygon ( glyph.polygon.triangles, x, y); 
+}
+
+
+jsaf_graphics2d_ttfFont.prototype.convertToBitmapFont = function ()
+{
+
+		var g = this.graphics2d;
+ 
+		var gl = this.graphics2d.gl;
+
+
+		var cells =  Math.round ( Math.sqrt( outFont.glyphs.length )*2 );
+ 
+		var imgsize = (cells  )*fontSize;
+	 
+  /*
+	 	var imgsizeNonPow2 = imgsize;
+		
+		imgsize =  Math.pow( 2, Math.round( Math.log( imgsize ) / Math.log( 2 ) ) ); 
+
+		if ( imgsizeNonPow2 > imgsize )
+		{ imgsize*=2;
+		} 
+  
+ */
+		var settings = {   
+						   'wrap_s':gl.CLAMP_TO_EDGE, 'wrap_t':gl.CLAMP_TO_EDGE,
+					       'filter':gl.NEAREST	 
+
+					   } ;
+
+		this.image = this.graphics2d.createImage( imgsize   , imgsize , settings );
+	
+		g.setRenderTarget( this.image );
+	
+		g.setColor(.5,.5,.5);
+		g.drawRect(0,0,1024,1024)
+		g.setColor(1,1,1);
+
+		g.setAlpha(1);
+		g.setScale(1,1);		
 }

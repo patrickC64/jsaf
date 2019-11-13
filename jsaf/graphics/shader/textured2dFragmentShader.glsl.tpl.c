@@ -11,7 +11,5 @@ varying vec2 fragmentshader_texuv;
 
 void main()
 {
-	
-	gl_FragColor = getFragmentColor();
-	
+	gl_FragColor = getFragmentColor();	
 }

@@ -26,25 +26,33 @@ jsaf_graphics2d.prototype.drawRect = function ( x, y, w, h, unfilled)
  
 
 jsaf_graphics2d.prototype.drawImage = function (img, x, y )
-{
+{	
+	if (!img)return;
+	
 	this.pushRenderData ( this.QUAD, [ x, y, img.width, img.height], img.texture, 0);
 }
 
 
 jsaf_graphics2d.prototype.drawImageRect = function (img, x, y, w, h)
 {
+	if (!img)return;
+	
 	this.pushRenderData ( this.QUAD, [ x, y, w, h ], img.texture, 0);
 }
 
 
 jsaf_graphics2d.prototype.drawAnimImage = function (img, x, y, frame)
 {
+	if (!img)return;
+	
 	this.pushRenderData ( this.QUAD, [ x, y, img.width,img.height], img.texture, frame);
 }
 
 
 jsaf_graphics2d.prototype.drawAnimImageRect = function (img, x, y, w, h, frame)
 {
+	if (!img)return;
+	
 	this.pushRenderData ( this.QUAD, [ x, y, w, h ], img.texture, frame);
 }
 

@@ -75,7 +75,7 @@ var framework = ( function ()
 	}
 	
 	
-	jsaf.prototype.loadFile = function (url, onSuccess  )
+	jsaf.prototype.loadFile = async function (url, onSuccess  )
 	{	
 		var request = new XMLHttpRequest();
 		

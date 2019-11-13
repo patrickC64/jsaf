@@ -9,6 +9,7 @@ function jsaf_graphics2d_image( )
 	this.height = 1;
 	
 	this.texture = null;
+
 }
 
 

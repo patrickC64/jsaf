@@ -281,8 +281,8 @@ jsaf_graphics2d.prototype.pushTextureData = function ( texture, frame , vertices
 	
 	var texuv = [0,0,1,1];
  
-
-	if ( texture.frames > 1 )
+	// if frame == 0 then render anim image or image atlas as complete image
+	if ( texture.frames > 1 && frame > 0 )
 	{	 			
 		frame = Math.round(frame)%texture.frames;
  
