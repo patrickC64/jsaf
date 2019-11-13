@@ -32,17 +32,17 @@
 			fonts[ 6]= 'Candara.ttf';
 
 			let font =  g.loadFont ( 'shared/fonts/'+fonts[5] ,16 );	
-		
+				
+			g.setFont ( font ) 
+			g.setColor (1,1,1)
+				
 			var render = function () {
 				
 				g.cls();
-				
-				g.setFont ( font ) 
-				g.setColor (1,1,1)
-				g.drawText ("JSAF (version 0.02a)",200,300);
+
+				g.drawText ("JSAF (version: "+jsaf.version+" )",200,300);
 				
 				g.render();
-				console.log ( "render");
 				
 				window.requestAnimationFrame( render );	
 						
