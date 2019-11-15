@@ -141,7 +141,14 @@ jsaf_graphics_shaderBuffer.prototype.bindBufferData = function (vertices)
 				gl.uniform2fv(this.location, this.buffer );
 		
 				break;
-				
+	
+			case 'float':
+
+				gl.uniform1f(this.location, this.buffer[0]  );
+		//		gl.uniform1f(this.location, 2.0 );
+		
+				break;
+		
 			default:
 				gl.uniform1iv(this.location, this.buffer  );		
 			 

@@ -52,6 +52,7 @@ function jsaf_graphics( canvasID , resx, resy )
 	this.pixelRatio  = [1.0,1.0];					
 	this.viewport	 = null;				
 	this.blendmode	 = this.SOLID_BLEND;
+	this.yflip 		 = -1.0;
 	
 	this.textureUnits = this.gl.getParameter(this.gl.MAX_TEXTURE_IMAGE_UNITS );
 	//this.precession = this.gl.getParameter(this.gl.MAX_TEXTURE_IMAGE_UNITS );

@@ -119,8 +119,11 @@ jsaf_graphics2d.prototype.setRenderTarget = function ( target )
 	
 	var gl = this.gl;
 	
+
 	if ( target )
 	{			
+		this.graphics.yflip = 1.0;
+
 		// Create and bind the framebuffer
 		var fb = gl.createFramebuffer();
 		gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
@@ -137,18 +140,19 @@ jsaf_graphics2d.prototype.setRenderTarget = function ( target )
 		
 		this.setResolution( wx   , wy   );
 				
-		gl.viewport(0,  0  , wx   , wy  );
+		gl.viewport(0,  0  , wx   ,wy  );
  
 	} 
 	else
-	{
-		
+	{	
 
-		
 		gl.bindFramebuffer(gl.FRAMEBUFFER, null );
-		
+
 		this.setResolution(this.resolution[0],this.resolution[1]);
  
 	  	this.graphics.syncCanvasViewport()
+
+		this.graphics.yflip = -1.0;
+
 	}
 }

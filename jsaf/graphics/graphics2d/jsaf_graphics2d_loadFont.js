@@ -27,9 +27,10 @@ jsaf_graphics2d.prototype.loadFont = function ( url )
 		case 'woff':
 		
 			var flags  = arguments[1];
+			
 			font = new jsaf_graphics2d_ttfFont( this );
 			font.loadFont ( url, flags );
-		
+			
 			break;
 
 		default:

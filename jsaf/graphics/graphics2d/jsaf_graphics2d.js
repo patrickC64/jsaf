@@ -92,6 +92,7 @@ function jsaf_graphics2d( graphics ,resx, resy)
 						, 'handle':  []
 						, 'rotation': []
 						, 'resolution':  []
+						, 'yflip':[]
 						, 'color': []
 						, 'textureid':  []
 						, 'texuv':[]
@@ -132,6 +133,10 @@ jsaf_graphics2d.prototype.initShaders = function()
 
 	this.solid2dshader.createVertexUniform ('resolution','vec2')
 	.bindBuffer(this.renderBuffer.resolution);
+
+	this.solid2dshader.createVertexUniform ('yflip','float')
+	.bindBuffer(this.renderBuffer.yflip);
+
 	
 	this.solid2dshader.createFragmentAttribute ('color','vec4')
 	.bindBuffer(this.renderBuffer.color);
@@ -155,6 +160,9 @@ jsaf_graphics2d.prototype.initShaders = function()
 
 	this.textured2dshader.createVertexUniform ('resolution','vec2')
 	.bindBuffer(this.renderBuffer.resolution);
+
+	this.textured2dshader.createVertexUniform ('yflip','float')
+	.bindBuffer(this.renderBuffer.yflip);
 	
 	this.textured2dshader.createFragmentAttribute ('color','vec4')
 	.bindBuffer(this.renderBuffer.color);

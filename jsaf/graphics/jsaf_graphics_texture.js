@@ -73,7 +73,7 @@ jsaf_graphics_texture.prototype.init = function ()
 
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, this.wrap_s );
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, this.wrap_t );
-	
+
 }
 
 jsaf_graphics_texture.prototype.createTextureAtlas = function ( cellsX, cellsY , width, height )

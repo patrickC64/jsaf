@@ -7,6 +7,7 @@ jsaf_graphics2d.prototype.render = function ( )
  
 	this.renderBufferData();
 
+
 }
 
 
@@ -19,6 +20,7 @@ jsaf_graphics2d.prototype.useShader = function ( shader )
  	
 	this.currentShader.use();	
 	
+
 	this.renderBuffer.resolution [0] =   this.graphics.resolution[0]; 
 	this.renderBuffer.resolution [1] =   this.graphics.resolution[1]; 	
 
@@ -95,7 +97,8 @@ jsaf_graphics2d.prototype.renderBufferData = function (  )
 		}
 	}
 
- 
+	this.renderBuffer.yflip[0] = this.graphics.yflip; 	
+
 	this.currentShader.bindBuffersData(this.renderCallVertices);
  
 	switch ( this.currentPrimitive )
@@ -111,6 +114,7 @@ jsaf_graphics2d.prototype.renderBufferData = function (  )
 			
 		case this.POLYGON: 
 			gl.drawArrays(gl.TRIANGLES ,0,this.renderCallVertices);
+	 //		gl.drawArrays(gl.TRIANGLE ,0,this.renderCallVertices);
 	 
 			break;	
 			
@@ -140,6 +144,8 @@ jsaf_graphics2d.prototype.cls = function ()
 
 jsaf_graphics2d.prototype.pushPositionData = function (type, v )
 { 
+	this.renderBuffer.yflip[0]		  =   this.graphics.yflip; 	
+
 	// SET ORIGIN
 	v[0]+= this.rendersettings.origin[0];
 	v[1]+= this.rendersettings.origin[1];

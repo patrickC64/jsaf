@@ -19,7 +19,7 @@ scene2d_s03.prototype.init =function ()
 	
 	this.butterflyPool = new jsaf_objectPool( this.createButterfly, this );
  
-	this.butterflyPool.maxObjects = 500;
+	this.butterflyPool.maxObjects = 1000;
  
 	this.jump = 0;
 	this.isJump = 0;
