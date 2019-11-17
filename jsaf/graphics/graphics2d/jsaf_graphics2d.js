@@ -57,7 +57,7 @@ function jsaf_graphics2d( graphics ,resx, resy)
 	
 	this.rendersettings = null // DO NOT INSERT OBJECTS INTO RENDERsettings!!
  	
-	this.cls_rgba = [0.0, 0.0, 0.3, 1.0];
+	this.cls_rgba = [0.0, 0.0, 0.0, 1.0];
   
 	this.currentShader = null;
 	this.__renderObject = null;

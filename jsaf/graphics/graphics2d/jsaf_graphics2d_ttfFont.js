@@ -1,3 +1,6 @@
+if ( typeof(Promise)=='undefined' )
+jsaf.use("3thdParty/bluebird/bluebird.min.js");
+
 jsaf.use("3thdParty/opentypejs/dist/opentype.min.js");
 jsaf.use("3thdParty/earcut/earcut.js");
 
@@ -16,6 +19,7 @@ function jsaf_graphics2d_ttfFont( graphics2d )
 	// glyph scale factor (unitsPerPM to Pixel)
 	this.gscale = 0;
 }
+
 
 jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url, fontSize  )
 {
@@ -36,14 +40,15 @@ jsaf_graphics2d_ttfFont.prototype.loadFont = function ( url, fontSize  )
 
 }
 
-jsaf_graphics2d_ttfFont.prototype.xloadFont = async function ( url, fontSize  )
+
+jsaf_graphics2d_ttfFont.prototype.xloadFont = function ( url, fontSize  )
 { 
 	
 	fontSize = fontSize ? fontSize : 32;
 	
 	this.fontSize = fontSize;
 		
-	var font = await opentype.load(url);
+	var font =  opentype.load(url);
 	
 	if (font)
 	{ 
@@ -111,6 +116,38 @@ jsaf_graphics2d_ttfFont.prototype.buildFont = function ( font )
 		
 }
 
+jsaf_graphics2d_ttfFont.prototype.getTextWidth = function ( text )
+{
+	text+='';
+	var width = 0;
+	for(c=0;c<text.length;c++)
+	{	
+		if (text.charCodeAt(c) == 10)
+		{
+			yoff += this.fontSize;
+			xoff = 0;			
+			continue;
+		}
+
+		if (text.charCodeAt(c) == 32)
+		{
+			xoff += this.fontSize*.33;			
+			continue;
+		}
+	
+		if ( glyph = this.glyphs[text.charCodeAt(c)] )
+		{	
+			xoff += glyph.width * scale[0];
+		}
+		
+		width = Math.max(width, offx);
+		
+		//if (this.letterSpacing !=0 )
+		//xoff += this.letterSpacing * scale[0];		
+	}
+	
+	return width;
+}
 
 jsaf_graphics2d_ttfFont.prototype.drawText = function ( text, x, y, center)
 {

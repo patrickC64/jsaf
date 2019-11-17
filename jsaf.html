@@ -9,12 +9,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	-->
 
-	<link type="text/css" rel="stylesheet" href="../shared/css/default.css"/>
-	 
-	<script src="../jsaf/jsaf.js"></script>
-	
+	<link type="text/css" rel="stylesheet" href="shared/css/default.css"/>
 
-	
+	<script src="jsaf/jsaf.js"></script>
+
 	<script>
 		window.onload = function(){
 
@@ -32,15 +30,18 @@
 			fonts[ 6]= 'Candara.ttf';
 
 			let font =  g.loadFont ( 'shared/fonts/'+fonts[ 5] ,128 );	
+			let font2 =  g.loadFont ( 'shared/fonts/'+fonts[ 4] ,32 );	
 				
-			g.setFont ( font ) 
 			g.setColor (1,1,1)
 				
 			var render = function () {
 				
 				g.cls();
 
-				g.drawText ("JSAF (version:"+jsaf.version+")",200,300);
+			g.setFont ( font ) 
+				g.drawText ("JSAF (version:"+jsaf.version+")",200,200);
+			g.setFont ( font2 ) 
+				g.drawText ("Javascript Application Framework",200,350);
 				
 				g.render();
 				

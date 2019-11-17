@@ -1,8 +1,7 @@
 jsaf_graphics_shader.VERTEX_SHADER = 0;
 jsaf_graphics_shader.FRAGMENT_SHADER = 1;
 
- 
- 
+
 function jsaf_graphics_shader(shaderManager, name)
 {	
 	this.name = name;

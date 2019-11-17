@@ -86,8 +86,8 @@ jsaf_graphics3d.prototype.initShaders = function()
 	this.textured3dshader = this.shaderManager.createShader('textured3d');
  	this.textured3dshader.useTextures = true;
 	
-	this.textured3dshader.loadVertexShader	 (path+'graphics/shader/3dvertexShader.glsl.tpl.c');
-	this.textured3dshader.loadFragmentShader (path+'graphics/shader/3dfragmentShader.glsl.tpl.c');
+	this.textured3dshader.loadVertexShader	 (path+'graphics/shader/3dVertexShader.glsl.tpl.c');
+	this.textured3dshader.loadFragmentShader (path+'graphics/shader/3dFragmentShader.glsl.tpl.c');
 								
 	this.textured3dshader.createVertexAttribute ('position','vec3')
 	.bindBuffer(this.renderBuffer.position);

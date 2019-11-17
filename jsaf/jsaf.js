@@ -1,8 +1,5 @@
 var jsaf;
 
-//window.onerror = function(message, source, lineno, colno, error)
-// { alert(message+","+source+","+lineno);return false; }
-
 var framework = ( function ()
 {	
 	function jsaf()
@@ -189,7 +186,6 @@ var framework = ( function ()
 	}
 	
 	
-
 	jsaf.prototype.runApplication = function ( appname, renderContext, resx, resy )
 	{
 		this.appname = appname;
@@ -197,8 +193,7 @@ var framework = ( function ()
 		this.resolution = [ resx, resy ];		
 	}
 	
-	
-	
+		
 	jsaf.prototype.loadApplication = function ( )
 	{ 		
 		

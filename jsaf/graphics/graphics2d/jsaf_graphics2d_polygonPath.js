@@ -196,7 +196,8 @@ jsaf_graphics2d_polygonPath.prototype.createTriangles = function ()
 	var polys = this.polygons;
  
     // sort contours by descending area
-    polys.sort((a, b) => Math.abs(b.area) - Math.abs(a.area));
+    // polys.sort((a, b) => Math.abs(b.area) - Math.abs(a.area));
+    polys.sort( function(a, b){ return Math.abs(b.area) - Math.abs(a.area); } );
 
     // classify contours to find holes and their 'parents'
     const root = [];
@@ -219,7 +220,8 @@ jsaf_graphics2d_polygonPath.prototype.createTriangles = function ()
 
 	this.triangles = [];
 	
-	const totalPoints = polys.reduce( (sum, p ) => sum + p.vertices.length, 0);
+//	const totalPoints = polys.reduce( (sum, p ) => sum + p.vertices.length, 0);
+	const totalPoints = polys.reduce( function(sum, p ) { return sum + p.vertices.length } , 0);
     const vertexData = new Float32Array(totalPoints * 2);
     let vertexCount = 0;
     const indices = [];
@@ -230,9 +232,9 @@ jsaf_graphics2d_polygonPath.prototype.createTriangles = function ()
 		const coords = [];
 		const holes = [];
 
-		poly.vertices.forEach( function ( {x, y} )
+		poly.vertices.forEach( function ( c )
 		{ 
-			coords.push(x, y); 
+			coords.push(c.x, c.y); 
 		});
 		
 		poly.children.forEach( function ( child )
@@ -240,7 +242,8 @@ jsaf_graphics2d_polygonPath.prototype.createTriangles = function ()
 			// children's children are new, separate shapes
 			child.children.forEach(process);
 			holes.push(coords.length / 2);
-			child.vertices.forEach(({x, y}) => coords.push(x, y));
+//			child.vertices.forEach(({x, y}) => coords.push(x, y));
+			child.vertices.forEach(function(c){coords.push(c.x, c.y)});
 		});
       
 		// add vertex data

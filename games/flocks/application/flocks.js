@@ -10,7 +10,6 @@ function flocks()
 	this.name ='flocks';
 
 	this.gameState = 'mainmenue';
-
 }
 
 
@@ -41,6 +40,7 @@ flocks.prototype.update = function()
 	switch ( this.gameState )
 	{
 		case 'mainmenue':
+		case 'gameOver':
 			this.updateMainMenue();
 		break;
 
@@ -49,7 +49,7 @@ flocks.prototype.update = function()
 		break;
 
 		case 'inGame':
-			this.board.update();
+			this.gameLoop();
 		break;
 		
 	}
@@ -57,6 +57,41 @@ flocks.prototype.update = function()
 	
 }
 
+flocks.prototype.gameLoop = function ()
+{
+	this.board.update(this.deltaTime);
+
+	var ipc = this.inputControl;
+	
+	if ( ipc.getKeystate(39)==1  )
+	{	
+		this.board.moveBlock ( 1,0 );
+	}
+	
+	if ( ipc.getKeystate(37)==1 )
+	{	
+		this.board.moveBlock ( -1,0 );
+	}
+	
+		
+	if ( ipc.getKeystate(40)  )
+	{	
+		this.board.moveBlock ( 0,1 );
+	}
+
+	if ( ipc.getKeystate(65)==1 || ipc.getKeystate(38)==1 )
+	{	
+		this.board.rotateBlock ( -1 );
+	}
+	
+	if ( ipc.getKeystate(83)==1  )
+	{	
+		this.board.rotateBlock ( 1 );
+	}
+	
+	if (this.board.boardFull==true)
+		this.gameState = "gameOver";
+}
 
 flocks.prototype.render = function()
 {
@@ -65,6 +100,8 @@ flocks.prototype.render = function()
 
 	switch ( this.gameState )
 	{
+		case 'gameOver':
+			this.board.renderStats( 400, 100 );
 		case 'mainmenue':
 			this.renderMainMenue();
 		break;
@@ -80,11 +117,12 @@ flocks.prototype.render = function()
 
 flocks.prototype.startGame = function ()
 {
+	this.board.reset();
 	this.gameState = 'inGame';
 }
 
 flocks.prototype.renderGame = function ()
 {
-	console.log ( this.gameState);
 	this.board.render( 100, 100 );
+	this.board.renderStats( 300, 100 );
 }
