@@ -14,6 +14,10 @@ At the Moment all is a early Conceptstudy. But it works in a lot of Browsers and
 
 Some early examples ...
 
+http://c64.feuerware.com/jsaf/jsaf.html
+
+http://c64.feuerware.com/jsaf/games/flocks/
+
 http://c64.feuerware.com/jsaf/apps/scene2d_s03/
 
 http://c64.feuerware.com/jsaf/apps/spriteFactory/
