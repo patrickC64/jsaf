@@ -84,14 +84,14 @@ jsaf_graphics_shader.prototype.createFragmentUniform = function (name, decl )
 
 jsaf_graphics_shader.prototype.loadVertexShader = function (file)
 {	
-	this.vertexShaderSource = jsaf.loadTextFileSync ( file+"?" );
+	this.vertexShaderSource = jsaf.loadTextFileSync ( file+"?"+new Date().getMilliseconds() );
 //	this.vertexShaderSource = jsaf.loadFile ( file );
 }
 
 
 jsaf_graphics_shader.prototype.loadFragmentShader = function (file)
 {
-	this.fragmentShaderSource = jsaf.loadTextFileSync ( file+"?" );
+	this.fragmentShaderSource = jsaf.loadTextFileSync ( file+"?"+new Date().getMilliseconds() );
 }
 
 

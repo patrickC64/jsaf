@@ -16,4 +16,6 @@ jsaf.use('data/structures/jsaf_objectPool.js');
 
 jsaf.use('userinput/jsaf_inputControl.js');
 
+jsaf.use ("userinput/jsaf_touchControl.js");
+
 jsaf.use('graphics/utils/jsaf_graphics_framecounter.js');

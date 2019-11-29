@@ -1,10 +1,10 @@
 jsaf.inputControl = jsaf_inputControl;
 
-jsaf.use('userinput/jsaf_touchControl.js')
+jsaf.use('userinput/jsaf_touchInput.js');
+jsaf.use('userinput/jsaf_touchControl.js');
 
 function jsaf_inputControl(graphics)
 {	
-	
 	this.KEY_PRESS = 1
 	this.KEY_DOWN = 2
 	this.KEY_UP = 3
@@ -17,16 +17,16 @@ function jsaf_inputControl(graphics)
  
 	var canvas = this.canvas = graphics.canvas;
 	
-	this.touchControl = new jsaf_touchControl ( this );
+	this.touchInput = new jsaf_touchControl ( this );
 	
 	
-	this.keyState = new Array(310);
+	this.keystate = new Array(310);
 	for (var key=0;key<310;key++)
-		this.keyState[key]=0;
+		this.keystate[key]=0;
 
 	document.onkeyup = function (e)
 	{
-			this.keyState [e.which]=3;
+			this.keystate [e.which]=3;
 			//alert("KU"+e.which);
 
 		if(e.which==8)
@@ -39,9 +39,9 @@ function jsaf_inputControl(graphics)
 	
 	document.onkeydown = function(e)
 	{		
-		if(this.keyState[e.which]==0)
+		if(this.keystate[e.which]==0)
 		{
-			this.keyState[e.which]=4;
+			this.keystate[e.which]=4;
 			this.keyhit=e.which;
 		}
 		
@@ -96,23 +96,23 @@ jsaf_inputControl.prototype.mouseDown = function (mouseButton)
 {	
 	mouseButton+=299;
 	
-	if(this.keyState[mouseButton]==0)
-		this.keyState[mouseButton]=4;
+	if(this.keystate[mouseButton]==0)
+		this.keystate[mouseButton]=4;
 }
 
 jsaf_inputControl.prototype.mouseUp = function (mouseButton)
 {
 	mouseButton+=299;
 	
-	this.keyState [mouseButton]=5;
+	this.keystate [mouseButton]=5;
 }
 
 jsaf_inputControl.prototype.getKeystate = function(key)
 {
-	var keyState = this.keyState[key];
+	var keystate = this.keystate[key];
 
 
-	return keyState;
+	return keystate;
 }	
 
 
@@ -126,25 +126,24 @@ jsaf_inputControl.prototype.getKeyHit = function()
 }	
 
 
-jsaf_inputControl.prototype.update = function(key)
+jsaf_inputControl.prototype.update = function()
 {
- 
-	for (key=0;	key<this.keyState.length; key++)
+	for (key=0;	key<this.keystate.length; key++)
 	{
-		if(this.keyState[key]==3)
+		if(this.keystate[key]==3)
 		{	
-			this.keyState[key]=0;
+			this.keystate[key]=0;
 		}
 		
-		if(this.keyState[key]==5)
+		if(this.keystate[key]==5)
 		{	
-			this.keyState[key]=3;
+			this.keystate[key]=3;
 		}
 		
-		if(this.keyState[key]==1)
-			this.keyState[key]=2;	
+		if(this.keystate[key]==1)
+			this.keystate[key]=2;	
 		
-		if(this.keyState[key]==4)
-			this.keyState[key]=1;
+		if(this.keystate[key]==4)
+			this.keystate[key]=1;
 	}
 }

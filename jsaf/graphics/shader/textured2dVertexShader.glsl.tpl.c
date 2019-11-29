@@ -20,6 +20,7 @@ varying vec4 fragmentshader_color;
 
 void main()
 {
+
 	vec2 tcoord = position-handle;
 
 	vec2 coord = vec2(handle[0]+(cos(rotation)*(tcoord.x))-(sin(rotation)*(tcoord.y)),handle[1]+(cos(rotation)*(tcoord.y))+(sin(rotation)*(tcoord.x)));	

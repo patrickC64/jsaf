@@ -20,6 +20,12 @@ function jsaf_application(  )
 	this.gui2d 			= null;
 	this.inputControl	= null;	
 	this.sync = false;
+	this.isMobile = false;
+	
+	if ( window.navigator.appVersion.toLowerCase().indexOf('android')!=-1 )
+	{
+		this.isMobile = true;
+	}
 }
 
 

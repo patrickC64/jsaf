@@ -1,3 +1,7 @@
+window.onerror = function (e) {alert(e)};
+
+
+
 flocks.prototype = Object.create ( jsaf.application.prototype );
 
 jsaf.include ("includes/board.js");
@@ -10,6 +14,7 @@ function flocks()
 	this.name ='flocks';
 
 	this.gameState = 'mainmenue';
+
 }
 
 
@@ -32,11 +37,44 @@ flocks.prototype.init = function()
 
 	this.board = new board( this.graphics2d );
 	
+	this.keyRepeatBlock = 0;
+
+	this.touchInput = new jsaf.inputControl.touchInput(this.inputControl, this.graphics2d );
+	this.touchControl = new jsaf.inputControl.touchControl( this.touchInput );
+	
+	var ox = this.graphics2d.graphics.resolution[0]-200;
+	var oy = this.graphics2d.graphics.resolution[1]-200;
+											
+	//UP
+	this.touchControl.addTouchZone ( { type:'rect', coords:[ox+50,oy+00,50,50] , keyCode: 38 } );
+	//DOWN
+	this.touchControl.addTouchZone ( { type:'rect', coords:[ox+50,oy+100,50,50] , keyCode: 40 } );
+	//LEFT
+	this.touchControl.addTouchZone ( { type:'rect', coords:[ox+00,oy+50,50,50] , keyCode: 37 } );
+	//RIGHT
+	this.touchControl.addTouchZone ( { type:'rect', coords:[ox+100,oy+50,50,50] , keyCode: 39 } );
+	
+	// SPACE
+	this.touchControl.addTouchZone ( { type:'rect', coords:[ox-100,oy,100,25] , keyCode: 32 } );
+
+	// TurnLeft (A)
+	this.touchControl.addTouchZone ( { type:'rect', coords:[ox-100,oy,100,25] , keyCode: 32 } );
+	// TurnRight (S)
+	this.touchControl.addTouchZone ( { type:'rect', coords:[ox-100,oy,100,25] , keyCode: 32 } );
+		
+	
+	//this.startGame();
 }
 
 
 flocks.prototype.update = function()
 {
+	if ( this.isMobile )
+	{
+		this.touchInput.update();
+		this.touchControl.update();
+	}
+	
 	switch ( this.gameState )
 	{
 		case 'mainmenue':
@@ -63,14 +101,33 @@ flocks.prototype.gameLoop = function ()
 
 	var ipc = this.inputControl;
 	
-	if ( ipc.getKeystate(39)==1  )
+	var state = 0;
+	
+	this.keyRepeatBlock-=2;//*parseInt(this.deltaTime);
+			
+	if ( state = ipc.getKeystate(39) )
 	{	
-		this.board.moveBlock ( 1,0 );
+		if ( this.keyRepeatBlock <= 0 || state == 1)
+		{
+			this.board.moveBlock ( 1,0 );
+			this.keyRepeatBlock = 4;
+			
+			if (state == 1)
+				this.keyRepeatBlock = 20;
+		}
 	}
 	
-	if ( ipc.getKeystate(37)==1 )
+	if ( state = ipc.getKeystate(37) )
 	{	
-		this.board.moveBlock ( -1,0 );
+		if ( this.keyRepeatBlock <= 0 || state == 1 )
+		{
+			this.board.moveBlock ( -1,0 );
+			this.keyRepeatBlock = 4;
+
+			if (state == 1)
+				this.keyRepeatBlock = 20;
+
+		}
 	}
 	
 		
@@ -110,8 +167,12 @@ flocks.prototype.render = function()
 			this.renderGame();
 		break;		
 	}
-
+	
+	if ( this.isMobile ) 
+		this.touchControl.render();
+	
 	this.graphics2d.render();
+
 }
 
 

@@ -1,4 +1,4 @@
-if ( typeof(Promise)=='undefined' )
+if ( typeof(Promise)=='undefined' ) // (POLYFILL) FIX IE MISSING PROMISE
 jsaf.use("3thdParty/bluebird/bluebird.min.js");
 
 jsaf.use("3thdParty/opentypejs/dist/opentype.min.js");

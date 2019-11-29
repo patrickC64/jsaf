@@ -13,7 +13,7 @@ varying vec4 fragmentshader_color;
 
 void main()
 {	
-	gl_PointSize =1.0;
+	gl_PointSize =0.4;
 
 	vec2 tcoord = position-handle;
  

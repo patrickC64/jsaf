@@ -42,8 +42,7 @@ function board(g)
 
 board.prototype.update = function (dTime)
 {	
-
-	if (this.addPoints>0)
+	if ( this.addPoints )
 	{
 		this.addPoints-=5;
 		this.points+=5;				
@@ -72,6 +71,8 @@ board.prototype.update = function (dTime)
 
 				if ( this.blockPosition[1] <-1 )
 				{
+					this.points+=this.addPoints;
+					this.addPoints = 0;
 					this.boardFull = true;
 				}
 				
